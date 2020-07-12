@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 
 const db = require('./database/db')
-//console.log(db)
 const Vehicle = db.Mongoose.model('vehicles', db.VehicleSchema, 'vehicles');
 
 //Motoristas
@@ -13,7 +12,9 @@ router.get('/', (request, response) => {
 //Veiculos
 //Listar veiculos
 router.get('/vehicle', (request, response) => {
-  response.send(Vehicle.find({}))
+  Vehicle.find({}).lean().exec(function(e,vehicles){
+    response.json(vehicles);
+ });
 })
 
 // Cadastrar veiculo
@@ -35,6 +36,19 @@ router.post('/vehicle', (request, response) => {
 })
 
 //Atualizar veiculo
+router.put('/vehicle/:id', (request, response) => {
+  Vehicle.findByIdAndUpdate(request.params.id, {
+    $set:{
+      nomeProprietario: request.body.nomeProprietario,
+      placa: request.body.placa,
+      renavam: request.body.renavam
+    }
+  }).then(() => {
+    response.json({ 'Mensagem': 'Dados do veiculo atualizados com sucesso' })
+  }).catch((err) => {
+    response.json({'Erro': 'Erro ao atualizar os dados do veiculo' + err})
+  })
+})
 
 //Deletar veiculo
 
