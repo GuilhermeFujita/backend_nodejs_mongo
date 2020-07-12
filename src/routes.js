@@ -24,13 +24,13 @@ router.post('/vehicle', (request, response) => {
      placa: request.body.placa,
      renavam: request.body.renavam
     });
-    console.log(newVehicle)
+    // console.log(newVehicle)
     newVehicle.save(function(err){
       if(err){
         response.status(500).json({ 'message': 'Erro'+ err })
         return
       }
-      console.log(newVehicle)
+      //console.log(newVehicle)
       response.json(newVehicle)
     })
 })
@@ -51,6 +51,15 @@ router.put('/vehicle/:id', (request, response) => {
 })
 
 //Deletar veiculo
+router.delete('/vehicle/:id', (request, response) => {
+  Vehicle.deleteOne({ _id: request.params.id })
+    .then(() => {
+      response.status(204).json({'Mensagem': 'Deletado com sucesso'})
+    }).catch((err) => {
+      response.status(500).json({'Erro': 'Erro ao deletar' + err})
+    })
+  //console.log(request.params)
+})
 
 
 module.exports = router

@@ -11,6 +11,15 @@ var driverSchema = new mongoose.Schema({
   status: {
     type: Boolean,
     default: true
+  },
+  dataCadastro:{
+    type: Date,
+    default: Date.now()
+
+  },
+  dataAtualizacao: {
+    type: Date,
+    default: Date.now()
   }
 }, { collection: 'drivers' }
 );
