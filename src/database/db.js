@@ -3,7 +3,7 @@ const { request } = require("express");
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/backend_nodejs')
 
-const driverSchema = new mongoose.Schema({
+var driverSchema = new mongoose.Schema({
   nome: String,
   sobrenome: String,
   cpf: String,
@@ -15,8 +15,10 @@ const driverSchema = new mongoose.Schema({
 }, { collection: 'drivers' }
 );
 
-const vehicleSchema = new mongoose.Mongoose.Schema({
+var vehicleSchema = new mongoose.Schema({
   nomeProprietario: String,
   placa: String,
-  renavan: String
+  renavam: String
 }, { collection: 'vehicles' })
+
+module.exports = { Mongoose: mongoose, DriverSchema: driverSchema, vehicleSchema: vehicleSchema}
