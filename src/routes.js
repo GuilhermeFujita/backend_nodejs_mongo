@@ -4,10 +4,10 @@ const router = express.Router()
 const DriverController  = require('./controllers/DriverController')
 const VehicleController = require('./controllers/VehicleController')
 
-// //Motoristas
-// router.get('/', (request, response) => {
-//   response.send('OK')
-// })
+//Motoristas
+router.get('/', (request, response) => {
+  response.send('API está em funcionamento normalmente')
+})
 
 router.get('/driver', DriverController.index)
 router.post('/driver', DriverController.create)
