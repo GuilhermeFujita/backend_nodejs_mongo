@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 
 const db = require('./database/db');
-const { request } = require('express');
 const Vehicle = db.Mongoose.model('vehicles', db.VehicleSchema, 'vehicles');
 const Driver = db.Mongoose.model('drivers', db.DriverSchema, 'drivers');
 
@@ -35,6 +34,17 @@ router.post('/driver', (request, response) => {
     // console.log(newDriver)
     response.json(newDriver)
   })
+})
+
+//Deletar motorista
+router.delete('/driver/:id', (request, response) => {
+  Driver.deleteOne({ _id: request.params.id })
+    .then(() => {
+      response.status(204).json({'Mensagem': 'Deletado com sucesso'})
+    }).catch((err) => {
+      response.status(500).json({'Erro': 'Erro ao deletar' + err})
+    })
+  //console.log(request.params)
 })
 
 //Veiculos
