@@ -1,0 +1,19 @@
+{
+  "name": "backend_node_mongodb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "Guilherme Sant Ana Fujita",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.23"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
