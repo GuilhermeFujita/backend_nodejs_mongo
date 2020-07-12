@@ -36,6 +36,32 @@ router.post('/driver', (request, response) => {
   })
 })
 
+// Atualizar motorista
+router.put('/driver/:id', (request, response) => {
+  let status =  request.body.status
+  if(!status){
+    status =  false
+  }
+  else{
+    status = true
+  }
+
+  Driver.findByIdAndUpdate(request.params.id, {
+    $set:{
+      nome: request.body.nome,
+      sobrenome: request.body.sobrenome,
+      cpf: request.body.cpf,
+      dataNascimento: new Date(request.body.dataNascimento),
+      status: status
+    }
+  }).then(() => {
+    response.json({ 'Mensagem': 'Dados do motorista atualizados com sucesso' })
+  }).catch((err) => {
+    response.json({'Erro': 'Erro ao atualizar os dados do motorista' + err})
+  })
+})
+
+
 //Deletar motorista
 router.delete('/driver/:id', (request, response) => {
   Driver.deleteOne({ _id: request.params.id })
@@ -44,7 +70,6 @@ router.delete('/driver/:id', (request, response) => {
     }).catch((err) => {
       response.status(500).json({'Erro': 'Erro ao deletar' + err})
     })
-  //console.log(request.params)
 })
 
 //Veiculos
@@ -68,7 +93,6 @@ router.post('/vehicle', (request, response) => {
         response.status(500).json({ 'message': 'Erro'+ err })
         return
       }
-      //console.log(newVehicle)
       response.json(newVehicle)
     })
 })
@@ -96,7 +120,6 @@ router.delete('/vehicle/:id', (request, response) => {
     }).catch((err) => {
       response.status(500).json({'Erro': 'Erro ao deletar' + err})
     })
-  //console.log(request.params)
 })
 
 
