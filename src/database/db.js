@@ -21,4 +21,4 @@ var vehicleSchema = new mongoose.Schema({
   renavam: String
 }, { collection: 'vehicles' })
 
-module.exports = { Mongoose: mongoose, DriverSchema: driverSchema, vehicleSchema: vehicleSchema}
+module.exports = { Mongoose: mongoose, DriverSchema: driverSchema, VehicleSchema: vehicleSchema}
