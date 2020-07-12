@@ -1,7 +1,8 @@
 const { request } = require("express");
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/backend_nodejs')
+mongoose.connect('mongodb://localhost/backend_nodejs', 
+                { useNewUrlParser: true, useUnifiedTopology: true })
 
 var driverSchema = new mongoose.Schema({
   nome: String,
