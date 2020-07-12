@@ -1,12 +1,40 @@
 const express = require('express')
 const router = express.Router()
 
-const db = require('./database/db')
+const db = require('./database/db');
+const { request } = require('express');
 const Vehicle = db.Mongoose.model('vehicles', db.VehicleSchema, 'vehicles');
+const Driver = db.Mongoose.model('drivers', db.DriverSchema, 'drivers');
 
 //Motoristas
 router.get('/', (request, response) => {
   response.send('OK')
+})
+
+//Buscar todos os motoristas
+router.get('/driver', (request, response) => {
+  Driver.find({}).lean().exec(function(e,driver){
+    response.json(driver);
+ });
+})
+
+//Cadastrar motorista
+router.post('/driver', (request, response) => {
+  const newDriver = new Driver({
+    nome: request.body.nome,
+    sobrenome: request.body.sobrenome,
+    cpf: request.body.cpf,
+    dataNascimento: new Date(request.body.dataNascimento)
+  })
+
+  newDriver.save(function(err){
+    if(err){
+      response.status(500).json({ 'message': 'Erro'+ err })
+      return
+    }
+    // console.log(newDriver)
+    response.json(newDriver)
+  })
 })
 
 //Veiculos
